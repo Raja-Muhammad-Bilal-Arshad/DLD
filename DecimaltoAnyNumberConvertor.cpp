@@ -29,15 +29,11 @@ int main()
 			c = 'A' + (rem - 10);
 
 
-		s = s + c;
+		s = c + s;
 		Number = Number / base;
 	}
-	int length = s.length()-1;
-	cout <<"The Final Answer is : "<< endl;
-	for (int i = length;i >= 0;i--)
-	{
-		cout << s[i] << " ";
-	}
+	
+	cout << s << endl;
 
 
 }
