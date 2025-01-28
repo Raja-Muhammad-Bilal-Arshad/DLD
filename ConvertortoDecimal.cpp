@@ -9,6 +9,7 @@ int main()
     cin >> a;
     cout << "Enter the Index of the Number you can changing: ";
     cin >> i;
+    if(i<=10){
     while (a != 0)
     {
         int rem;
@@ -18,5 +19,9 @@ int main()
         p++;
         a = a / 10;
     }
-    cout << " =   " << ans;
+    cout << " =   " << ans;}
+// else if (i>10)
+// {
+
+// }
 }
