@@ -36,3 +36,6 @@ int main()
 
 	cout << "Sum  =  " << Sum;
 }
+
+
+                       //      Valid for Base-N

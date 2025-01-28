@@ -20,8 +20,6 @@ int main()
         a = a / 10;
     }
     cout << " =   " << ans;}
-// else if (i>10)
-// {
-
-// }
 }
+
+                                            // Only Valid Till Base of 10
