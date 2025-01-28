@@ -12,6 +12,10 @@ int main()
 	cin >> Input;
 	cout << "Enter you Base: ";
 	cin >> Base;
+	if (Base < 2) {
+	cout << "Base must be Greater than 2.. Exiting..." << endl;
+	return 1;
+	}
 	int rem=0,Sum=0;
 	int length = Input.length();
 	for (int i = 0;i < Input.length();i++)
@@ -22,20 +26,22 @@ int main()
 		{
 			rem = (toupper(EachDigit) - 'A' + 10);
 		}
-		else if(isdigit(EachDigit))
+		else if (isdigit(EachDigit))
 		{
 			rem = EachDigit - '0';
 		}
+		else
+		{
+			cout << "....Incorrect Input..." << endl;
+			return 1;
+		}
 		if (rem >= Base)
 		{
-			cout << "Your " << i + 1 << "th Digit is incorrect: " << endl;
+			cout << "Your " << i + 1 << "th Digit is incorrect... Killing the Process " << endl;
 			return 1;
 		}
 		Sum = Sum * Base + rem;
 	}
-
+	
 	cout << "Sum  =  " << Sum;
 }
-
-
-                       //      Valid for Base-N
