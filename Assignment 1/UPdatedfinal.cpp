@@ -3,9 +3,19 @@
 #include<ctype.h>
 #include<string>
 
+#define RESET   "\033[0m"
+#define BOLD    "\033[1m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
+
 using namespace std;
 
-
+void displaymenu();
   // Module 1
 void Base_Validator(int base);
 void Number_Validator(string s, int base);
@@ -38,15 +48,18 @@ void Weather_Coder(string decimal);
 int main()
 {
     int ch;
-    cout<<"Choose the Module you want to Select: ";
+    displaymenu();
     cin>>ch;
     string Number;
+    while(ch!=0)
+{
+   switch(ch)
+{
+    //      FOR MODULE 1
+    case 1:
+    {
     int From_Base;
     int To_Base;
-
-    //      FOR MODULE 1
-    if(ch==1)
-    {
     cout<<"Number: ";
     cin>>Number;
     Base_Validator(From_Base);
@@ -70,7 +83,7 @@ int main()
 
 
 //         FOR MODULE 2
-    else if(ch==2)
+    case 2:
     {
         cout<<"Binary energy reading: ";
         cin>>Number;
@@ -83,7 +96,7 @@ int main()
 
 
 //          FOR MODULE 3
-    else if(ch==3)
+    case 3:
     {
         cout<<"Sensor data: ";
         cin>>Number;
@@ -92,7 +105,7 @@ int main()
 
     }
 //          FOR MODULE 4
-   else if(ch==4)
+   case 4:
    {
     cout<<"Password: ";
     cin>>Number;
@@ -101,7 +114,7 @@ int main()
    }
 
 //          FOR MODULE 5
-    else if(ch==5)
+    case 5:
     {
      cout<<"Signal: ";
      cin>>Number;
@@ -109,7 +122,7 @@ int main()
      Signal_Validator(Number);
     }
 //          FOR MODULE 6
-    else if(ch==6)
+    case 6:
     {
      cout<<"Binary data: ";
      cin>>Number;
@@ -117,7 +130,7 @@ int main()
      cout<<"Compressed data: "<<endl<<Data_Compressor(Number);     
     }
 //          FOR MODULE 7
-    else if(ch==7)
+    case 7:
     {
 
         int n;
@@ -128,7 +141,7 @@ int main()
         return 0;
     }
 //          FOR MODULE 8
-    else if(ch==8)
+    case 8:
     {
         cout<<"Votes: ";
         getline(cin, Number);
@@ -137,7 +150,7 @@ int main()
     }
 
 //          FOR MODULE 9
-    else if(ch==9)
+    case 9:
     {
         cout<<"Alert COde: ";
         cin>>Number;
@@ -145,8 +158,36 @@ int main()
         Weather_Coder(Number);
 
     }
+    default:
+    {
+        cout<<"Wrong Selection...";
+    }
+}
+}
     
 }
+void displaymenu()
+{
+    cout << BOLD << CYAN << "============================================\n";
+    cout << "       🔬 The Stellar Data Management System      \n";
+    cout << "============================================" << RESET << endl;
+
+    cout << BOLD << GREEN << ".. 1. " << MAGENTA << "Scientific Data Converter" << endl;
+    cout << BOLD << GREEN << ".. 2. " << MAGENTA << "Energy Consumption Monitor" << endl;
+    cout << BOLD << GREEN << ".. 3. " << MAGENTA << "Environmental Sensor Analyzer" << endl;
+    cout << BOLD << GREEN << ".. 4. " << MAGENTA << "Secure Access Password Validator" << endl;
+    cout << BOLD << GREEN << ".. 5. " << MAGENTA << "Communication Signal Validator" << endl;
+    cout << BOLD << GREEN << ".. 6. " << MAGENTA << "Binary Data Compressor" << endl;
+    cout << BOLD << GREEN << ".. 7. " << MAGENTA << "Gray Code Sequence Generator" << endl;
+    cout << BOLD << GREEN << ".. 8. " << MAGENTA << "Binary Voting Tally System" << endl;
+    cout << BOLD << GREEN << ".. 9. " << MAGENTA << "Weather Station Alert Decoder" << endl;
+    cout << BOLD << RED   << ".. 0. " << RED << "Exit" << endl;
+
+    cout << BOLD << CYAN << "============================================" << RESET << endl;
+    cout << BOLD << YELLOW << "Enter your choice: " << RESET;
+}
+
+            // MODULE 1
 void Base_Validator(int base)
 {
 if(base<2 || base>32)
