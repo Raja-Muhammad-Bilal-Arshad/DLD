@@ -11,8 +11,7 @@ void Base_Validator(int base);
 void Number_Validator(string s, int base);
 void Entered_Number_Validator(int &num, int base);
 int Convert_to_Decimal(string user, int base);
-string Convert_From_Decimal_to_Desired_Base(int s,int base);
-
+string Convert_From_Decimal_to_Desired_Base(int decimal,int base);
 
 //Module 2: Energy Consumption Monitor
 void Binary_Number_Validator(string num);
@@ -30,83 +29,10 @@ void Signal_Validator(string num);
 //Module 6: Binary Data Compressor
 string Data_Compressor(string num);
 //Module 7:
-void Gray_Coder(int k)
-{
-    int n=pow(2,k);
-   int max_length=Convert_From_Decimal_to_Desired_Base(n-1,2).length();
-
-    string binary;
-    for(int i=0;i<n;i++)
-    {
-
-        binary=Convert_From_Decimal_to_Desired_Base(i,2);
-
-        while(binary.length()<max_length)
-        binary='0'+binary;
-
-       
-        cout<<"'";
-        cout<<binary[0];
-
-
-        for(int j=1;j<binary.length();j++)
-        {
-            int a=binary[j-1]-'0';
-            int b=binary[j]-'0';
-
-            // cout<<",";
-            cout<<(a^b);
-
-        }
-        cout<<"'";
-        if(i<n-1)
-        cout<<",";
-        else
-        cout<<"]";
-
-    }
-}
+void Gray_Coder(int k);
 //Module 8: Binary Voting Tally System
-string Voting_Tally_System(string num[], int votes)
-{
-    string Vote_Bank;
-    string Vote_Count;
-    int count=0;
-    string candidate_ID;
-    for(int i=0;i<votes;i++)
-    {
-        int total_indexes=num[i].length()-1;
-        for(int j=total_indexes-5;j<num[i].length();j++)
-        {
-            candidate_ID=candidate_ID+num[i][j];
-        }
-        Vote_Bank+=Convert_to_Decimal(candidate_ID,2);
-    }
-    for(int i=0;i<Vote_Bank.length();i++)
-    {
-        if(Vote_Bank[i]!=0)
-        Vote_Count=Vote_Count+Vote_Bank[i];
-        count=0;
-        for(int j=i;j<Vote_Bank.length();j++)
-        {
-            if(Vote_Bank[i]==Vote_Bank[j])
-            {
-                count++;
-                Vote_Bank[j]=0;
-            }
-        }
-        Vote_Count+=count;
-    }
-    return Vote_Count;
-}
-void Vote_Output(string num)
-{
-    for (int i = 0; i < num.length(); i++)
-    {
-        
-    }
-    
-}
+void Output_Votes(int Array[], int n);
+void Voting_Tally_System(string votes);
 //Module 9: Weather Station Alert Decoder
 void Weather_Coder(string decimal);
 int main()
@@ -188,7 +114,7 @@ int main()
      cout<<"Binary data: ";
      cin>>Number;
      Binary_Number_Validator(Number);
-     cout<<"Expected Output: "<<endl<<Data_Compressor(Number);     
+     cout<<"Compressed data: "<<endl<<Data_Compressor(Number);     
     }
 //          FOR MODULE 7
     else if(ch==7)
@@ -205,10 +131,8 @@ int main()
     else if(ch==8)
     {
         cout<<"Votes: ";
-        cin>>Number;
-        cout<<"Output";
-
-
+        getline(cin, Number);
+        Voting_Tally_System(Number);
 
     }
 
@@ -235,20 +159,31 @@ void Number_Validator(string s, int base)
 {
     for(int i=0;i<s.length();i++)
     {
-        if(s[i]>=base)
+        int digit;
+        if(isalpha(s[i]))
+            digit=toupper(s[i])-'A'+10;
+        else if(isdigit(s[i]))
+        digit=s[i]-'0';
+        else
         {
             cout<<"Invalid Number entered with respect to your base...";
+            exit(1);
+        }
+        if(digit >=base)
+        {
+            cout<<"Invalid number entered with respect to your base";
             exit(0);
+
         }
     }
 }
 int Convert_to_Decimal(string user, int base)
 {
-    char digit;
-    int rem=0,decimal=0,power =0;
+  
+    int rem=0,decimal=0,power =1;
     for(int i=user.length()-1;i>=0;i--)
     {
-        digit=toupper(user[i]);
+        char digit=toupper(user[i]);
 
         if(isalpha(digit))
         {
@@ -270,8 +205,9 @@ int Convert_to_Decimal(string user, int base)
 
         }
 
-        decimal+=rem*power;
+        decimal += rem * power;
         power*=base;
+
 
     }
     return decimal;
@@ -332,13 +268,13 @@ void Binary_Sensor(string num)
     int total_digit=num.length();
     for(int i=0;i<num.length();i++)
     {
-        if(num[i]==0)
+        if(num[i]=='0')
         zero_count++;
         else
         ones_count++;
     }
     cout<<"Alert Status: ";
-    if((zero_count/total_digit)*100>60)
+    if((zero_count* 100.0/total_digit)>60)
     cout<<"Triggered "<<endl;
     else
     cout<<"Normal"<<endl;
@@ -357,12 +293,12 @@ void Password_Validator(string num)
 
     for(int i=0;i<num.length();i++)
     {
-        if(num[0]!=0)
+        if(num[0]!='1')
         {
             cout<<"Your First number is not equal to one, Hence Exiing code...";
             exit(0);
         }
-        if(num[i]==1)
+        if(num[i]=='1')
         ones_count++;
         if(i<=num.length()/2 && num[i]==num[last_Index--])
         Mirror_Validator++;
@@ -376,7 +312,6 @@ void Password_Validator(string num)
     }
     if(Mirror_Validator!=num.length()/2)
     cout<<"Your Password is not Mirrored, Weak Password...";
-        exit(0);
 }
             // FOR MODULE 5
 void Signal_Validator(string num)
@@ -392,7 +327,7 @@ void Signal_Validator(string num)
         {
             counter--;
         }
-        if(num[i%2==0]&& counter==0)
+        if(i%2==0&& counter==0)
         {
             a++;
         }
@@ -400,7 +335,7 @@ void Signal_Validator(string num)
     }
     if(a!=num.length()/2)
     {
-        cout<<"Your Sgnals are not alternate";
+        cout<<"Your Signals are not alternate";
         exit(0);
     }
     if(a>4)
@@ -408,6 +343,7 @@ void Signal_Validator(string num)
         cout<<"The Sequence must noy have more than 4 consecutive identical bits.";
         exit(0);
     }
+    cout<<"Valid";
     
     
 }
@@ -417,13 +353,11 @@ string Data_Compressor(string num)
     int count=0;
     char check=num[0];
     string compressed_data;
-    char c;
     for(int i=0;i<num.length();i++)
     {
         if(num[i]!=check)
         {
-            c=count;
-            compressed_data=compressed_data+c+check;
+            compressed_data=compressed_data+to_string(count)+check;
             check=num[i];count=0;
         }
         if(num[i]==check)
@@ -432,11 +366,120 @@ string Data_Compressor(string num)
     return compressed_data;
 }
 
+            // FOR MODULE 7
+void Gray_Coder(int k)
+{
+    int n=1<<k;
+   int max_length=k;
+
+    string binary;
+    cout<<"[";
+    for(int i=0;i<n;i++)
+    {
+
+        binary=Convert_From_Decimal_to_Desired_Base(i,2);
+
+        while(binary.length() < max_length)
+        binary='0'+binary;
+
+       
+        cout<<"'";
+        cout<<binary[0];
 
 
+        for(int j=1;j<binary.length();j++)
+        {
+            int a=binary[j-1]-'0';
+            int b=binary[j]-'0';
+
+            // cout<<",";
+            cout<<(a^b);
+
+        }
+        cout<<"'";
+        if(i<n-1)
+        cout<<",";
+        else
+        cout<<"]";
+
+    }
+}
+            // FOR MODULE 8
+
+void Output_Votes(int Array[], int n)
+{
+    int m=10;
+    int Result[m],k=0,count=0;
+    for(int i=0;i<n;i++)
+    {
+        if(Array[i]!=0)
+    {  
+         count=0;
+        int num=Array[i];
+
+        for(int j=i;j<n;j++)
+        {
+            if(Array[j]==num)
+        {
+            count++;
+            Array[j]=0;
+        }
+    }
+    Result[k++]=num;
+    Result[k++]=count;
+    }
+    }
+    for(int i=0;i<k;i+=2)
+    cout<<"Candidate "<<Result[i]<<": "<<Result[i+1]<<" votes,";
+}
+void Voting_Tally_System(string votes)
+{
+    int n=10,j=-1;
+    int k=0;
+
+    int decimal_Container[10]={};
+    string vote_bank[n]={};
+
+    for(int i=0;i<votes.length();i++)
+    {
+        if(votes[i]=='"')
+        {
+            j++; k++;
+            if(k%2==0)
+            j--;
+        }
+        if(isalnum(votes[i])&& j>=0)
+        {
+            vote_bank[j] +=votes[i];
+        }
+    }
+        for(int i=0;i<=j;i++)
+        {
+            if
+        (vote_bank[i].length()>=5)
+           {
+          string last_five_digits=vote_bank[i].substr(vote_bank[i].length()-5,5);
+          decimal_Container[i]=Convert_to_Decimal(last_five_digits,2); 
+            }
+            else
+            {
+                cout<<"Vote: "<<i<<" is not valid number"<<endl;
+                exit(1);
+            }
+        }
+        for(int i=0;i<=j;i++)
+        cout<<decimal_Container[i]<<" "; 
+        cout<<endl;
+        Output_Votes(decimal_Container,j+1);  
+}
             //FOR MODULE 9
 void Weather_Coder(string decimal)
 {
+    if(decimal.length()<8)
+    {
+        cout<<"Invalid code...";
+        return;
+    }
     string First_bit=decimal.substr(0,3);
     string Last_Bits=decimal.substr(3,5);
     if(First_bit=="001")
@@ -452,9 +495,9 @@ void Weather_Coder(string decimal)
 
     if(Last_Bits=="00001")
     cout<<"Meteor Shower"<<endl;
-    else if(Last_Bits=="00001")
+    else if(Last_Bits=="00010")
     cout<<"Solar Flare"<<endl;
-    else if(Last_Bits=="00001")
+    else if(Last_Bits=="00011")
     cout<<"Lunar Eclipse"<<endl;
     else
     cout<<"Unknown Weather condition"<<endl;
