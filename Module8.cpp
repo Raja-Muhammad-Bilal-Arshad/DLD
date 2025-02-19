@@ -80,7 +80,8 @@ void Output_Votes(int Array[], int n)
     }
     }
     for(int i=0;i<k;i+=2)
-    cout<<"Candidate "<<Result[i]<<": "<<Result[i+1]<<" votes,";
+    {cout<<"Candidate "<<Result[i]<<": "<<Result[i+1];
+    if(Result[i+1]>1)cout<<" votes,";else cout<<" vote";}
 }
 void Voting_Tally_System(string votes)
 {
