@@ -49,12 +49,14 @@ void Weather_Coder(string decimal);
 
 int main()
 {
-    int ch;
-    displaymenu();
-    cin>>ch;
+    int ch=1;
+    // displaymenu();
+    // cin>>ch;
     string Number;
     while(ch!=0)
 {
+    displaymenu();
+    cin>>ch;
    switch(ch)
 {
     //      FOR MODULE 1
