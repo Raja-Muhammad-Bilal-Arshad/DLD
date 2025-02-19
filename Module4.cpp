@@ -73,5 +73,5 @@ int main()
         cout<<"Password Strength: ";
         Binary_Number_Validator(Number);
         Password_Validator(Number);
-       }
+    }
 }
