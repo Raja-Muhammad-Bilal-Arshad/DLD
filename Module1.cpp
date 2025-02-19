@@ -1,9 +1,7 @@
 #include <iostream>
 using namespace std;
 
-
-
-            // MODULE 1
+// MODULE 1
 int Convert_to_Decimal(string user, int base)
 {
   
@@ -84,28 +82,26 @@ string Convert_From_Decimal_to_Desired_Base(int decimal,int base)
     return s;
 }
 
+     
 int main() 
 {
     string Number;
-    int From_Base;
-    int To_Base;
-    cout<<"Number: ";
-    cin>>Number;
-    cout<<"From Base: ";
-    cin>>From_Base; 
-    Base_Validator(From_Base);
-    Number_Validator(Number,From_Base);
-    cout<<"To Base: ";
-    cin>>To_Base;
-    Base_Validator(To_Base);
-
-    int decimal=Convert_to_Decimal(Number,From_Base);
-    // Now Convert your base in your desired base
-    // Convert to string
-    string s=Convert_From_Decimal_to_Desired_Base(decimal,To_Base);
-    cout<<"Expected Output: "<<endl<<s;
-
-
-
-    return 0;
+        int From_Base;
+        int To_Base;
+        cout<<"Number: ";
+        cin>>Number;
+        cout<<"From Base: ";
+        cin>>From_Base; 
+        Base_Validator(From_Base);
+        Number_Validator(Number,From_Base);
+        cout<<"To Base: ";
+        cin>>To_Base;
+        Base_Validator(To_Base);
+    
+        int decimal=Convert_to_Decimal(Number,From_Base);
+        // Now Convert your base in your desired base
+        // Convert to string
+        string s=Convert_From_Decimal_to_Desired_Base(decimal,To_Base);
+        cout<<"Expected Output: "<<endl<<s;
+        return 0;
 }
